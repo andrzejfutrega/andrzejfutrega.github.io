@@ -1,21 +1,9 @@
-
-var questions = [
-    ['Jakie jest największe jezioro na świecie?', 'Morze Kaspijskie'],
-    ['Jak nazywa się najwyższa góra na Ziemi?', 'Mount Everest'],
-    ['W którym kraju znajduje się Sahara?', 'Algieria'],
-    ['Jakie miasto jest stolicą Japonii?', 'Tokio'],
-    ['Jakie jest najdłuższe rzeka na świecie?', 'Nil']
-];
-
-var currentQuestionIndex = 0;
-var score = 0;
-
-
 function displayQuestion() {
+
     const quizContainer = document.getElementById('quiz-container');
     quizContainer.innerHTML = '';
 
-    const question = questions[currentQuestionIndex];
+    const question = questions[q];
     const questionText = document.createElement('p');
     questionText.innerText = question[0];
 
@@ -27,31 +15,26 @@ function displayQuestion() {
     quizContainer.appendChild(answerInput);
 
     const nextButton = document.getElementById('next-button');
-    nextButton.style.display = 'inline';
     nextButton.onclick = function() {
-        checkAnswer(answerInput.value);
+        testQuestion(answerInput.value);
     };
 }
-
-
-function checkAnswer(answer) {
-    const question = questions[currentQuestionIndex];
-    if (answer.trim().toLowerCase() === question[1].toLowerCase()) {
+function testQuestion(answer){
+    const question = questions[q];
+    if (answer.trim().toLowerCase() === question[1].toLowerCase()){
         alert('Prawidłowa odpowiedź!');
         score++;
-    } else {
+    }
+    else {
         alert('Błąd. Prawidłowa odpowiedź to ' + question[1]);
     }
-
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
+    q++;
+    if (q < questions.length) {
         displayQuestion();
     } else {
         showResult();
     }
 }
-
-
 function showResult() {
     const quizContainer = document.getElementById('quiz-container');
     quizContainer.innerHTML = '';
@@ -63,6 +46,5 @@ function showResult() {
     const submitButton = document.getElementById('submit-button');
     submitButton.style.display = 'none';
 }
-
 
 displayQuestion();
